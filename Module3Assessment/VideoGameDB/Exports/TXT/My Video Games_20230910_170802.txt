@@ -1,0 +1,18 @@
+ID: 2
+Title: Final Fantasy 7
+Genre: Role-Playing Game
+Platform: Sony PlayStation
+Release Year: 1997
+------------------------------
+ID: 3
+Title: The Elder Scrolls V: Skyrim
+Genre: Action role-playing
+Platform: PC
+Release Year: 2011
+------------------------------
+ID: 5
+Title: Diablo IV
+Genre: Hack and Slash
+Platform: Sony PlayStation 5
+Release Year: 2023
+------------------------------

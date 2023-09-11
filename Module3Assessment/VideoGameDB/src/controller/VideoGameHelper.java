@@ -1,7 +1,7 @@
 /**
  * @author Adam Reese - amreese3
  * CIS175 - Fall 2023
- * Sep 6, 2023
+ * Sep 10, 2023
  */
 
 package controller;
@@ -16,79 +16,107 @@ import model.VideoGame;
 
 public class VideoGameHelper {
 
-	// Creating an EntityManagerFactory object to interact with the persistence unit
-	static EntityManagerFactory emfactory = Persistence.createEntityManagerFactory("VideoGameDB");
+	// Constant representing the name of the persistence unit defined in
+	// persistence.xml
+	private static final String PERSISTENCE_UNIT_NAME = "VideoGameDB";
 
-	// Method to insert a new video game into the database
+	// EntityManagerFactory instance to create EntityManager instances for
+	// interacting with the database
+	private static final EntityManagerFactory emFactory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
+
+	// Method to insert a new video game record into the database
 	public void insertGame(VideoGame videoGame) {
-		EntityManager em = emfactory.createEntityManager(); // Creating an EntityManager object
-		em.getTransaction().begin(); // Beginning a transaction
+		// Creating an EntityManager instance to interact with the database
+		EntityManager em = emFactory.createEntityManager();
 		try {
-			em.persist(videoGame); // Persisting the video game object
-			em.getTransaction().commit(); // Committing the transaction
+			// Beginning a new transaction
+			em.getTransaction().begin();
+
+			// Persisting the video game object to the database
+			em.persist(videoGame);
+
+			// Committing the transaction to save the changes
+			em.getTransaction().commit();
 		} catch (Exception e) {
-			em.getTransaction().rollback(); // Rolling back the transaction in case of an exception
-			System.out.println("Error inserting game: " + e.getMessage()); // Printing the error message
+			// Rolling back the transaction in case of an error
+			em.getTransaction().rollback();
+
+			// Logging the error message
+			System.out.println("Error inserting game: " + e.getMessage());
 		} finally {
-			em.close(); // Closing the EntityManager
+			// Closing the EntityManager to release resources
+			em.close();
 		}
 	}
 
-	// Method to retrieve a list of all video games from the database
+	// Method to retrieve a list of all video game records from the database
 	public List<VideoGame> showAllGames() {
-		EntityManager em = emfactory.createEntityManager(); // Creating an EntityManager object
-		TypedQuery<VideoGame> typedQuery = em.createQuery("SELECT v FROM VideoGame v", VideoGame.class); // Creating a query to select all video games
-		List<VideoGame> allGames = typedQuery.getResultList(); // Getting the result list from the query
-		em.close(); // Closing the EntityManager
-		return allGames; // Returning the list of all video games
+		EntityManager em = emFactory.createEntityManager();
+		TypedQuery<VideoGame> typedQuery = em.createQuery("SELECT v FROM VideoGame v", VideoGame.class);
+		List<VideoGame> allGames = typedQuery.getResultList();
+		em.close();
+		return allGames;
 	}
 
-	// Method to find a video game by its ID
+	// Method to find a video game record in the database by its ID
 	public VideoGame findGameById(Integer gameId) {
-		EntityManager em = emfactory.createEntityManager(); // Creating an EntityManager object
-		VideoGame foundGame = em.find(VideoGame.class, gameId); // Finding the video game by its ID
-		em.close(); // Closing the EntityManager
-		return foundGame; // Returning the found video game
+		EntityManager em = emFactory.createEntityManager();
+		VideoGame foundGame = em.find(VideoGame.class, gameId);
+		em.close();
+		return foundGame;
 	}
 
-	// Method to delete a video game by its ID
+	// Method to delete a video game record from the database by its ID
 	public void deleteGame(Integer gameId) {
-		EntityManager em = emfactory.createEntityManager(); // Creating an EntityManager object
-		em.getTransaction().begin(); // Beginning a transaction
+		EntityManager em = emFactory.createEntityManager();
 		try {
-			VideoGame foundGame = em.find(VideoGame.class, gameId); // Finding the video game by its ID
+			em.getTransaction().begin();
+			VideoGame foundGame = em.find(VideoGame.class, gameId);
 			if (foundGame != null) {
-				em.remove(foundGame); // Removing the found video game
-				em.getTransaction().commit(); // Committing the transaction
+				em.remove(foundGame);
+				em.getTransaction().commit();
 			} else {
-				System.out.println("Game with ID " + gameId + " not found."); // Printing a message if the game was not found
-				em.getTransaction().rollback(); // Rolling back the transaction
+				System.out.println("Game with ID " + gameId + " not found.");
+				em.getTransaction().rollback();
 			}
 		} catch (Exception e) {
-			em.getTransaction().rollback(); // Rolling back the transaction in case of an exception
-			System.out.println("Error deleting game: " + e.getMessage()); // Printing the error message
+			em.getTransaction().rollback();
+			System.out.println("Error deleting game: " + e.getMessage());
 		} finally {
-			em.close(); // Closing the EntityManager
+			em.close();
 		}
 	}
 
-	// Method to update the details of a video game
+	// Method to update the details of an existing video game record in the database
 	public void updateGame(VideoGame videoGameToUpdate) {
-		EntityManager em = emfactory.createEntityManager(); // Creating an EntityManager object
-		em.getTransaction().begin(); // Beginning a transaction
+		EntityManager em = emFactory.createEntityManager();
 		try {
-			em.merge(videoGameToUpdate); // Merging the updated video game object
-			em.getTransaction().commit(); // Committing the transaction
+			em.getTransaction().begin();
+			em.merge(videoGameToUpdate);
+			em.getTransaction().commit();
 		} catch (Exception e) {
-			em.getTransaction().rollback(); // Rolling back the transaction in case of an exception
-			System.out.println("Error updating game: " + e.getMessage()); // Printing the error message
+			em.getTransaction().rollback();
+			System.out.println("Error updating game: " + e.getMessage());
 		} finally {
-			em.close(); // Closing the EntityManager
+			em.close();
 		}
 	}
 
-	// Method to close the EntityManagerFactory
+	// Method to retrieve the maximum ID value currently in the database, used for
+	// proper numerical organization of records
+	public int getMaxId() {
+		EntityManager em = emFactory.createEntityManager();
+		try {
+			TypedQuery<Integer> query = em.createQuery("SELECT MAX(v.id) FROM VideoGame v", Integer.class);
+			Integer maxId = query.getSingleResult();
+			return (maxId != null) ? maxId : 0;
+		} finally {
+			em.close();
+		}
+	}
+
+	// Method to close the EntityManagerFactory, releasing all resources held by it
 	public void cleanUp() {
-		emfactory.close();
+		emFactory.close();
 	}
 }

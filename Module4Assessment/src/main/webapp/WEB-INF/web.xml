@@ -1,0 +1,26 @@
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	version="4.0">
+	<!-- Servlet configuration for GameForm1Servlet -->
+	<servlet>
+		<servlet-name>GameForm1Servlet</servlet-name>
+		<servlet-class>com.videogamedetails.GameForm1Servlet</servlet-class>
+	</servlet>
+
+	<!-- Servlet configuration for GameForm2Servlet -->
+	<servlet>
+		<servlet-name>GameForm2Servlet</servlet-name>
+		<servlet-class>com.videogamedetails.GameForm2Servlet</servlet-class>
+	</servlet>
+
+	<!-- URL mapping for GameForm1Servlet -->
+	<servlet-mapping>
+		<servlet-name>GameForm1Servlet</servlet-name>
+		<url-pattern>/gameForm1</url-pattern>
+	</servlet-mapping>
+
+	<!-- URL mapping for GameForm2Servlet -->
+	<servlet-mapping>
+		<servlet-name>GameForm2Servlet</servlet-name>
+		<url-pattern>/gameForm2</url-pattern>
+	</servlet-mapping>
+</web-app>

@@ -1,7 +1,7 @@
 /*
  * @author Adam Reese - amreese3
  * CIS175 - Fall 2023
- * Sep 27, 2023
+ * Sep 29, 2023
  */
 
 package controller;
@@ -46,9 +46,13 @@ public class DeveloperServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-		// Handle 'viewAll' action
-		else if ("viewAll".equals(action)) {
-			List<Developer> developers = em.createQuery("SELECT d FROM Developer d", Developer.class).getResultList();
+		// Handle 'viewAllDevelopers' action
+		else if ("viewAllDevelopers".equals(action)) {
+			List<Developer> developers = em.createQuery("SELECT d FROM Developer d ORDER BY d.name", Developer.class).getResultList();
+
+			// Debugging line to print the list of developers to the console
+			System.out.println("Developers: " + developers);
+
 			request.setAttribute("developers", developers);
 			try {
 				request.getRequestDispatcher("viewAllDevelopers.jsp").forward(request, response);
@@ -86,10 +90,10 @@ public class DeveloperServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-		// Default behavior: Redirect to 'viewAll'
+		// Default behavior: Redirect to 'viewAllDevelopers'
 		else {
 			try {
-				response.sendRedirect("developerServlet?action=viewAll");
+				response.sendRedirect("developerServlet?action=viewAllDevelopers");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

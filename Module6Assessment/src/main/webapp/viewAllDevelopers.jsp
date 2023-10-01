@@ -8,7 +8,7 @@
 </head>
 <body>
 	<h1>Developer List</h1>
-	<table border="1">
+	<table border=1>
 		<tr>
 			<th>ID</th>
 			<th>Name</th>
@@ -25,6 +25,7 @@
 	</table>
 	<br>
 	<a href="addDeveloper.jsp">Add a new developer</a>
+	<br>
 	<br>
 	<a href="index.jsp">Back to Home</a>
 </body>

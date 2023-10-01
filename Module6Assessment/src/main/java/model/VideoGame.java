@@ -1,7 +1,7 @@
 /*
  * @author Adam Reese - amreese3
  * CIS175 - Fall 2023
- * Sep 27, 2023
+ * Sep 29, 2023
  */
 
 package model;
@@ -13,7 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 
-// Annotation to specify that this class is a JPA entity
+//Annotation to specify that this class is a JPA entity
 @Entity
 public class VideoGame {
 
@@ -29,6 +29,7 @@ public class VideoGame {
 	private String platform; // Field representing the platform on which the video game is available
 	private int releaseYear; // Field representing the release year of the video game
 
+	// Many-to-One relationship with Developer
 	@ManyToOne
 	@JoinColumn(name = "developer_id")
 	private Developer developer;

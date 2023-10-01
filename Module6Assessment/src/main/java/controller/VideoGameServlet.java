@@ -1,8 +1,9 @@
+
 /*
- * @author Adam Reese - amreese3
- * CIS175 - Fall 2023
- * Sep 27, 2023
- */
+* @author Adam Reese - amreese3
+* CIS175 - Fall 2023
+* Sep 29, 2023
+*/
 
 package controller;
 
@@ -10,6 +11,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import model.Developer;
 import model.VideoGame;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -45,31 +48,51 @@ public class VideoGameServlet extends HttpServlet {
 				request.setAttribute("videoGame", videoGame);
 			}
 
-			// Forward the request to the edit.jsp page
+			// Fetch all developers from the database
+			List<Developer> developers = em.createQuery("SELECT d FROM Developer d", Developer.class).getResultList();
+
+			// Set the developers list as a request attribute
+			request.setAttribute("developers", developers);
+
+			// Forward the request to the editGames.jsp page
 			try {
-				request.getRequestDispatcher("edit.jsp").forward(request, response);
+				request.getRequestDispatcher("editGames.jsp").forward(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		} else if (action != null && action.equals("viewAll")) {
+		} else if (action != null && action.equals("viewAllGames")) {
 			// Fetching all video game records from the database
-			List<VideoGame> videoGames = em.createQuery("SELECT v FROM VideoGame v", VideoGame.class).getResultList();
+			List<VideoGame> videoGames = em.createQuery("SELECT v FROM VideoGame v ORDER BY v.title", VideoGame.class).getResultList();
 
 			// Setting the list of video games as a request attribute to be accessed in the
 			// JSP
 			request.setAttribute("videoGames", videoGames);
 
-			// Forwarding the request to the viewAll page to display the list of video
-			// games
+			// Forwarding the request to the viewAllGames.jsp page to display the list of
+			// video games
 			try {
-				request.getRequestDispatcher("viewAll.jsp").forward(request, response);
+				request.getRequestDispatcher("viewAllGames.jsp").forward(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else if (action != null && action.equals("addNewGames")) {
+			// Fetch all developers from the database
+			List<Developer> developers = em.createQuery("SELECT d FROM Developer d", Developer.class).getResultList();
+			System.out.println("Number of developers: " + developers.size()); // Debug print
+
+			// Set the developers list as a request attribute
+			request.setAttribute("developers", developers);
+
+			// Forward to the addNewGames.jsp page
+			try {
+				request.getRequestDispatcher("addNewGames.jsp").forward(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		} else {
-			// Redirect to the "view all" page
+			// Redirect to the "view all games" page
 			try {
-				response.sendRedirect("videoGameServlet?action=viewAll");
+				response.sendRedirect("videoGameServlet?action=viewAllGames");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -103,11 +126,15 @@ public class VideoGameServlet extends HttpServlet {
 		String platform = request.getParameter("platform");
 		String releaseYearParam = request.getParameter("releaseYear");
 
+		// Retrieve the developer ID from the request
+		String developerIdParam = request.getParameter("developerId");
+
 		// Debugging: Print the values of the parameters
 		System.out.println("Title: " + title);
 		System.out.println("Genre: " + genre);
 		System.out.println("Platform: " + platform);
 		System.out.println("Release Year: " + releaseYearParam);
+		System.out.println("Received Developer ID: " + developerIdParam);
 
 		if (title != null && genre != null && platform != null && releaseYearParam != null
 				&& !releaseYearParam.isEmpty()) {
@@ -115,13 +142,26 @@ public class VideoGameServlet extends HttpServlet {
 
 			VideoGame videoGame = new VideoGame(title, genre, platform, releaseYear);
 
+			// Set the Developer object for the VideoGame
+			if (developerIdParam != null && !developerIdParam.isEmpty()) {
+				int developerId = Integer.parseInt(developerIdParam);
+
+				// Find the Developer object by ID
+				Developer developer = em.find(Developer.class, developerId);
+				System.out.println("Found Developer: " + developer); // Debug print
+
+				// Associate the Developer with the VideoGame
+				videoGame.setDeveloper(developer);
+				System.out.println("Video Game after setting Developer: " + videoGame); // Debug print
+			}
+
 			// Beginning a transaction to persist the new VideoGame object to the database
 			em.getTransaction().begin();
 			em.persist(videoGame);
 			em.getTransaction().commit();
 
 			// Redirecting to the videoGameServlet to refresh the list of video games
-			response.sendRedirect("videoGameServlet?action=viewAll");
+			response.sendRedirect("videoGameServlet?action=viewAllGames");
 		} else {
 			// Handle the case where one or more parameters are null or empty, perhaps by
 			// sending an error response
@@ -137,6 +177,7 @@ public class VideoGameServlet extends HttpServlet {
 		String genre = request.getParameter("genre");
 		String platform = request.getParameter("platform");
 		int releaseYear = Integer.parseInt(request.getParameter("releaseYear"));
+		String developerIdParam = request.getParameter("developerId"); // New line to get developer ID
 
 		// Finding the VideoGame object by ID and updating its fields
 		VideoGame videoGame = em.find(VideoGame.class, id);
@@ -146,6 +187,14 @@ public class VideoGameServlet extends HttpServlet {
 			videoGame.setGenre(genre);
 			videoGame.setPlatform(platform);
 			videoGame.setReleaseYear(releaseYear);
+
+			// New block to update the Developer
+			if (developerIdParam != null && !developerIdParam.isEmpty()) {
+				int developerId = Integer.parseInt(developerIdParam);
+				Developer developer = em.find(Developer.class, developerId);
+				videoGame.setDeveloper(developer);
+			}
+
 			em.getTransaction().commit();
 
 			// Redirecting to the videoGameServlet to refresh the list of video games

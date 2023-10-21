@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Manage Shelves</title>
+	<link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+	<div class="manage-shelves-container">
+		<h1>Manage Shelves</h1>
+		<p class="instructions">Here you can edit, delete, or view the shelves you've created</p>
+
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Genre</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="shelf : ${shelves}">
+					<td>
+						<a th:href="@{/shelves/view/{id}(id=${shelf.id})}" class="genre-link">
+							<span th:text="${shelf.genre}">Genre</span>
+						</a>
+					</td>
+					<td>
+						<a th:href="@{'/shelves/edit/' + ${shelf.id}}" class="edit-button">Edit</a>
+						<a th:href="@{/shelves/delete-shelf/{id}(id=${shelf.id})}" class="delete-button">Delete</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<div class="navigation-buttons">
+			<a href="/shelves/add" class="add-button">Add a New Shelf</a>
+			<a href="/index.html" class="back-button">Back to Home</a>
+		</div>
+	</div>
+</body>
+
+</html>

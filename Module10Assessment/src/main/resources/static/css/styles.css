@@ -1,0 +1,312 @@
+@charset "UTF-8";
+
+/* Global Styles */
+body {
+	background-color: #f4f4f4;
+	font-family: Arial, sans-serif;
+	margin: 20px;
+}
+
+h1 {
+	color: #4CAF50;
+	text-align: center;
+}
+
+h2 {
+	text-align: center;
+	text-decoration: underline;
+}
+
+table,
+th,
+td {
+	border: 1px solid #ccc;
+}
+
+table {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+th,
+td {
+	padding: 10px;
+	text-align: left;
+}
+
+/* Form Styles */
+.form-group {
+	margin-bottom: 15px;
+	text-align: center;
+}
+
+.form-group label {
+	display: inline-block;
+	width: 100px;
+}
+
+.form-group input,
+.form-group textarea {
+	padding: 5px;
+	width: 200px;
+}
+
+/* Button Styles */
+.add-button,
+.edit-button,
+.delete-button,
+.back-button,
+.nav-button {
+	background-color: #4CAF50;
+	border-radius: 4px;
+	color: white;
+	margin: 5px;
+	padding: 8px 16px;
+	text-decoration: none;
+}
+
+.edit-button {
+	background-color: #f4c542;
+	color: black;
+}
+
+.delete-button {
+	background-color: #f44336;
+}
+
+.back-button {
+	background-color: #6c757d;
+}
+
+/* Navigation Buttons */
+.navigation-buttons {
+	margin-top: 20px;
+	text-align: center;
+}
+
+/* Splash Page Styles */
+.center-content,
+.features {
+	background-color: #f4f4f4;
+	text-align: center;
+}
+
+.center-content {
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
+	justify-content: center;
+	background-color: #f4f4f4;
+}
+
+.splash-buttons {
+	margin: 20px;
+}
+
+.features ul {
+	list-style: disc;
+	margin-left: 0;
+	padding-left: 40px;
+}
+
+.features li {
+	margin-bottom: 8px;
+	text-align: left;
+}
+
+/* Owner and Login Page Styles */
+.owner-container,
+.owner-box {
+	white-space: nowrap;
+}
+
+.owner-container {
+	align-items: center;
+	display: flex;
+	height: 100vh;
+	justify-content: center;
+}
+
+.owner-box {
+	background-color: white;
+	border-radius: 5px;
+	box-shadow: 0px 0px 10px #ccc;
+	padding: 20px;
+}
+
+#owner-selection {
+	border: 1px solid #ccc;
+	display: inline-block;
+	margin: 20px;
+	padding: 20px;
+}
+
+/* Manage Shelves Page */
+.manage-shelves-container {
+	margin: auto;
+	width: 80%;
+	padding: 20px;
+	background-color: #f9f9f9;
+	border-radius: 5px;
+	box-shadow: 0px 0px 10px #ccc;
+}
+
+.instructions {
+	font-size: 16px;
+	margin-bottom: 20px;
+	text-align: center;
+	font-weight: bold;
+}
+
+.genre-link,
+.shelf-name {
+	text-decoration: none;
+	color: #333;
+	font-weight: bold;
+}
+
+.genre-link:hover,
+.shelf-name:hover {
+	text-decoration: underline;
+	color: #4CAF50;
+}
+
+/* Bookshelf Styles */
+.bookshelf {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
+}
+
+.shelf,
+.shelf-board,
+.shelf-title {
+	margin: 10px 0;
+}
+
+.shelf {
+	border-bottom: 3px solid #555;
+	padding: 10px;
+}
+
+.shelf-board {
+	height: 10px;
+	width: 438px;
+	background-color: #8B4513;
+	margin: 2px 0;
+}
+
+.shelf-row {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	max-width: 440px;
+	margin: 0 auto;
+}
+
+.shelf-title {
+	display: flex;
+	font-size: 1.2em;
+	justify-content: space-between;
+	text-decoration: underline;
+}
+
+/* Book Styles */
+.books {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	align-items: flex-start;
+	align-self: flex-start;
+	gap: 2px;
+	max-width: 440px;
+	justify-content: flex-start;
+	height: 100px;
+}
+
+.book-spine,
+.book-spine a {
+	align-items: center;
+	color: white;
+	display: flex;
+	height: 100px;
+	justify-content: center;
+	position: relative;
+	text-decoration: none;
+	width: 20px;
+	margin: 0;
+}
+
+.book-spine {
+	height: 100px;
+	width: 20px;
+	background-color: #777;
+	cursor: pointer;
+	overflow: hidden;
+	transition: background-color 0.3s ease;
+}
+
+.book-spine:hover {
+	background-color: #555;
+}
+
+.book-title,
+.spine-text {
+	text-align: center;
+	writing-mode: vertical-rl;
+}
+
+.book-title {
+	line-height: 100px;
+	position: absolute;
+	top: 0;
+	transform: rotate(180deg);
+}
+
+.spine-text {
+	white-space: nowrap;
+}
+
+/* Book Details Page */
+.book-cover {
+	background-color: #777;
+	border-radius: 5px;
+	color: white;
+	padding: 20px;
+	text-align: center;
+}
+
+.book-summary {
+	border-top: 1px solid #ccc;
+	margin-top: 20px;
+	padding: 20px;
+}
+
+.book-summary-title {
+	text-align: center;
+	text-decoration: underline;
+}
+
+.title,
+.author {
+	font-size: 16px;
+	margin: 5px;
+}
+
+.author {
+	font-size: 12px;
+}
+
+/* New genre-link style */
+.genre-link {
+	text-decoration: underline;
+	/* Adds an underline to make it look like a clickable link */
+	color: blue;
+	/* Changes the color to blue to indicate interactivity */
+	font-weight: bold;
+	/* Makes the text bold */
+	cursor: pointer;
+	/* Changes the cursor to a hand when hovering */
+}

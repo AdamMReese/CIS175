@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Book Organizer</title>
+	<link rel="stylesheet" th:href="@{/css/styles.css}" />
+</head>
+
+<body onload="resizeText()">
+	<h1 th:text="${shelf.genre}">Shelf Genre</h1>
+	<center>
+		<a th:href="@{/shelves/view/{id}/add-book(id=${shelf.id})}" class="add-button">Add a New Book</a>
+		<a th:href="@{/shelves}" class="back-button">Back to Manage Shelves</a>
+	</center>
+	<br>
+	<div class="bookshelf">
+		<!-- Row 1 -->
+		<div class="shelf-row">
+			<div class="shelf-board"></div>
+			<div class="books">
+				<div th:each="book : ${books}" class="book-spine" th:id="${book.id}">
+					<a th:href="@{/books/view/{id}(id=${book.id})}">
+						<span class="spine-text" th:text="${book.title}"></span>
+					</a>
+				</div>
+			</div>
+		</div>
+
+		<!-- Row 2 -->
+		<div class="shelf-row">
+			<div class="shelf-board"></div>
+			<div class="books"></div>
+		</div>
+
+		<!-- Row 3 -->
+		<div class="shelf-board"></div>
+		<div class="books"></div>
+
+		<!-- Row 4 -->
+		<div class="shelf-board"></div>
+		<div class="books"></div>
+
+		<!-- Row 5 -->
+		<div class="shelf-board"></div>
+		<div class="books"></div>
+		<div class="shelf-board"></div>
+	</div>
+
+
+	<script>
+		function resizeText() {
+			let books = document.querySelectorAll('.book-spine');
+			books.forEach(book => {
+				let textElement = book.querySelector('.spine-text');
+				let bookHeight = book.clientHeight;
+				let textHeight = textElement.clientHeight;
+
+				// Scale down text until it fits the spine
+				while (textHeight > bookHeight) {
+					let style = window.getComputedStyle(textElement, null).getPropertyValue('font-size');
+					let fontSize = parseFloat(style);
+					textElement.style.fontSize = (fontSize - 1) + 'px';
+					textHeight = textElement.clientHeight;
+				}
+			});
+		}
+	</script>
+</body>
+
+</html>

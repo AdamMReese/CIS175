@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Book Organizer</title>
+	<link rel="stylesheet" th:href="@{/css/styles.css}" />
+</head>
+
+<body>
+	<h1 th:text="${shelf.genre}">Shelf Genre</h1>
+	<center><a th:href="@{/shelves/view/{id}/add-book(id=${shelf.id})}" class="add-button">Add a New Book</a></center>
+	<div class="books">
+		<div th:each="book : ${books}" class="book-spine" th:id="${book.id}">
+			<span th:text="${book.title}"></span>
+		</div>
+	</div>
+</body>
+
+</html>

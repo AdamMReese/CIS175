@@ -22,3 +22,7 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
+GameReviewHub/src/main/java/com/gamereviewhub/gamereviewhub/model/User.java
+GameReviewHub/src/main/java/com/gamereviewhub/gamereviewhub/repository/GameRepository.java
+GameReviewHub/src/main/java/com/gamereviewhub/gamereviewhub/repository/UserRepository.java
+GameReviewHub/src/main/resources/templates/error.html

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Add/Update Book</title>
+	<link rel="stylesheet" th:href="@{/css/styles.css}" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<script src="/js/book-form-validation.js"></script>
+	<style>
+		.error {
+			border: 2px solid red;
+		}
+	</style>
+</head>
+
+<body>
+
+	<h1 th:if="${book.id == null}">Add New Book</h1>
+	<h1 th:if="${book.id != null}">Update Book</h1>
+
+	<form th:action="@{/books/save}" th:object="${book}" method="post" novalidate>
+		<!-- Hidden field for ID and Shelf ID -->
+		<input type="hidden" th:field="*{id}" />
+		<input type="hidden" th:name="shelfId" th:value="${book.shelf.id}" />
+
+		<div class="form-group">
+			<label for="title">Title:</label>
+			<input type="text" id="title" th:field="*{title}" maxlength="100" required />
+			<span class="error-message" id="titleError"></span>
+		</div>
+		<div class="form-group">
+			<label for="author">Author:</label>
+			<input type="text" id="author" th:field="*{author}" maxlength="100" required />
+			<span class="error-message" id="authorError"></span>
+		</div>
+		<div class="form-group">
+			<label for="isbn">ISBN:</label>
+			<input type="text" id="isbn" th:field="*{isbn}" placeholder="Enter 10 or 13 digit ISBN" />
+			<span class="error-message" id="isbnError"></span>
+		</div>
+		<div class="form-group">
+			<label for="publish_date">Publish Year:</label>
+			<input type="text" id="publish_date" th:field="*{publish_date}" placeholder="Enter 4-digit year" />
+			<span class="error-message" id="publishDateError"></span>
+		</div>
+		<div class="form-group">
+			<label for="summary">Summary:</label>
+			<textarea id="summary" th:field="*{summary}" rows="10" cols="50"></textarea>
+		</div>
+		<center>
+			<button type="submit" class="nav-button">Submit</button>
+			<a th:if="${book.shelf != null and book.shelf.id != null}"
+				th:href="@{/shelves/view/{id}(id=${book.shelf.id})}" class="back-button">Cancel</a>
+		</center>
+	</form>
+</body>
+
+</html>

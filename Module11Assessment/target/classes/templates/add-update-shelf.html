@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Add/Update Shelf</title>
+	<link rel="stylesheet" th:href="@{/css/styles.css}" />
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+	<h1 th:if="${shelf.id == null}">Add New Shelf</h1>
+	<h1 th:if="${shelf.id != null}">Update Shelf</h1>
+
+	<form th:action="@{/shelves/save}" th:object="${shelf}" method="post">
+		<input type="hidden" th:field="*{id}" />
+		<div class="form-group">
+			<label for="genre">Genre:</label>
+			<input type="text" id="genre" th:field="*{genre}" required />
+		</div>
+		<center>
+			<button type="submit" class="nav-button">Submit</button>
+			<a href="/shelves" class="back-button">Cancel</a>
+		</center>
+	</form>
+</body>
+
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Owner Dashboard</title>
+	<link rel="stylesheet" href="/css/styles.css">
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+			const ownerSelect = document.getElementById("ownerSelect");
+			const submitButton = document.querySelector(".nav-button");
+
+			// Initially disable the button
+			submitButton.disabled = true;
+
+			// Listen for changes on the select element
+			ownerSelect.addEventListener("change", function () {
+				if (this.selectedIndex === 0) {
+					submitButton.disabled = true;
+				} else {
+					submitButton.disabled = false;
+				}
+			});
+		});
+	</script>
+</head>
+
+<body>
+
+	<div class="owner-container">
+		<div class="owner-box">
+			<h1>Select Owner</h1>
+			<form action="/owners/select-owner" method="post">
+				<div class="form-group">
+					<select id="ownerSelect" th:name="selectedOwnerId">
+						<option disabled selected>Please select</option> <!-- default placeholder -->
+						<option th:each="owner : ${owners}" th:value="${owner.id}"
+							th:text="${owner.firstName + ' ' + owner.lastName}"></option>
+					</select>
+				</div>
+				<button type="submit" class="nav-button">Select</button>
+				<a href="/index.html" class="back-button">Back to Home</a>
+			</form>
+		</div>
+	</div>
+</body>
+
+</html>

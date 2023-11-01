@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Book Details</title>
+	<link rel="stylesheet" th:href="@{/css/styles.css}" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script type="text/javascript">
+		function confirmDeletion() {
+			var userConfirmation = confirm("Are you sure you want to delete this book?");
+			if (userConfirmation) {
+				var bookId = [[${book.id}]];
+				window.location.href = '/books/delete/' + bookId;
+			}
+		}
+	</script>
+</head>
+
+<body>
+	<div class="book-cover">
+		<h1 th:text="${book.title}"></h1>
+		<p><strong>Author:</strong> <span th:text="${book.author}"></span></p>
+		<p><strong>ISBN:</strong> <span th:text="${book.isbn}"></span></p>
+		<p><strong>Publish Date:</strong> <span th:text="${book.publish_date}">Not available</span></p>
+	</div>
+
+	<div class="book-summary">
+		<center>
+			<h2>Summary</h2>
+		</center>
+		<p th:text="${book.summary}">No summary available</p>
+	</div>
+
+	<div class="navigation-buttons">
+		<a th:href="@{/books/edit/{id}(id=${book.id})}" class="edit-button">Edit</a>
+		<button onclick="confirmDeletion()" class="delete-button">Delete</button>
+		<!-- Display Return to Shelf button only if the book is associated with a shelf -->
+		<a th:if="${book.shelf != null and book.shelf.id != null}" th:href="@{/shelves/view/{id}(id=${book.shelf.id})}"
+			class="back-button">Return to Shelf</a>
+	</div>
+
+</body>
+
+</html>

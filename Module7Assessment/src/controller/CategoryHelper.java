@@ -13,9 +13,9 @@ package controller;
 import exceptions.DatabaseAccessException;
 import model.Category;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
-import javax.persistence.TypedQuery;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.TypedQuery;
 import java.util.List;
 
 // This class is used to perform CRUD operations on the Category table

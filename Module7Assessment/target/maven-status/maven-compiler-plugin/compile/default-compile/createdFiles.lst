@@ -1,9 +1,0 @@
-util\DateConverter.class
-model\Recipe.class
-controller\CategoryHelper.class
-exceptions\DatabaseAccessException.class
-controller\RecipeHelper.class
-model\Ingredient.class
-controller\IngredientHelper.class
-StartProgram.class
-model\Category.class

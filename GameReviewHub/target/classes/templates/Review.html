@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>My Spring Web App</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
+</head>
+<body>
+    <div id="container">
+          <nav>
+		    <ul>
+		        <li><a th:href="@{/index}" >Home</a></li>
+		        <li><a th:href="@{/Catalog}">Catalog</a></li>
+		        <li><a th:href="@{/Register}" >Register</a></li>
+		        <li><a th:href="@{/Review}" class="active">Add Reviews</a></li>
+		        <li><a th:href="@{/Contact}">Contact us</a></li>
+		    </ul>
+		</nav>
+	  <footer>
+            <p>Java 2</p>
+        </footer>
+    </div>
+
+    <p th:text="${message}"></p>
+</body>
+</html>

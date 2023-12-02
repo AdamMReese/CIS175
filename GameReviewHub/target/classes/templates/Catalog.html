@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>My Spring Web App</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
+</head>
+<body>
+    <div id="container">
+          <nav>
+		    <ul>
+		        <li><a th:href="@{/index}" >Home</a></li>
+		        <li><a th:href="@{/Catalog}"class="active">Catalog</a></li>
+		        <li><a th:href="@{/Register}">Register</a></li>
+		        <li><a th:href="@{/Review}">Add Reviews</a></li>
+		        <li><a th:href="@{/Contact}">Contact us</a></li>
+		    </ul>
+		</nav>
+        <header>
+            <h1>Welcome to the Catalog</h1>
+            
+        </header>
+        <section class="PC">
+        <h1>PC Game Shelf</h1>
+       <a th:href="@{/PcGames}" target="_blank">
+    	<img th:src="@{/PCGame.jpg}" alt="PC">
+		</a>
+
+        </section>
+        <section class="Playstaion">
+        <h1>Playstation Game Shelf</h1>
+        <img th:src="@{/PlayStation.jpg}" alt="Playstaion">
+        </section>
+        <section class="Nitendo">
+        <h1>Nitendo Game Shelf</h1>
+        <img th:src="@{/nintendo.jpg}" alt="Nitendo">
+        </section>
+        <section class="Xbox">
+        <h1>Xbox Game Shelf</h1>
+         <img th:src="@{/Xbox.jpg}" alt="Xbox">
+        </section>
+  
+        <footer>
+            <p>Java 2</p>
+        </footer>
+    </div>
+
+    <p th:text="${message}"></p>
+    
+</body>
+</html>

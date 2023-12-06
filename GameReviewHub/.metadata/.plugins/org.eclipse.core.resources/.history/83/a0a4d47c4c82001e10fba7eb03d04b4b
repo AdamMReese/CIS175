@@ -1,0 +1,65 @@
+package dmacc.repository;
+
+import dmacc.model.User;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+@RunWith(SpringRunner.class)
+@SpringBootTest
+class UserRepositoryTest {
+
+    @Autowired
+    private UserRepository userRepository;
+
+    private User testUser;
+
+    @BeforeEach
+    public void setUp() {
+        testUser = new User("testuser", "testpassword");
+        userRepository.save(testUser);
+    }
+
+    @AfterEach
+    public void tearDown() {
+        userRepository.delete(testUser);
+    }
+
+    @Test
+    void testExistsByUsername() {
+        assertTrue(userRepository.existsByUsername("testuser"));
+        assertFalse(userRepository.existsByUsername("nonexistentuser"));
+    }
+
+    @Test
+    void testFindByUsernameAndPassword() {
+        Optional<User> foundUserOptional = userRepository.findByUsernameAndPassword("testuser", "testpassword");
+        assertTrue(foundUserOptional.isPresent());
+        User foundUser = foundUserOptional.get();
+        assertEquals("testuser", foundUser.getUsername());
+        assertEquals("testpassword", foundUser.getPassword());
+
+        assertFalse(userRepository.findByUsernameAndPassword("nonexistentuser", "password").isPresent());
+        assertFalse(userRepository.findByUsernameAndPassword("testuser", "wrongpassword").isPresent());
+    }
+
+    @Test
+    void testFindByUsername() {
+        Optional<User> foundUserOptional = userRepository.findByUsername("testuser");
+        assertTrue(foundUserOptional.isPresent());
+        User foundUser = foundUserOptional.get();
+        assertEquals("testuser", foundUser.getUsername());
+        assertEquals("testpassword", foundUser.getPassword());
+
+        assertFalse(userRepository.findByUsername("nonexistentuser").isPresent());
+    }
+}
+

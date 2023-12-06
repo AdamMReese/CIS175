@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>My Spring Web App</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
+</head>
+<body>
+    <div id="container">
+    <header>
+    	<h1>Here is the list of PC Games:</h1>
+    	<p>Below is a list of reviwed PC Games.  Feel free to read information about each game.  If you are not finding a game or would like to review a game click here to head to the review area.  Thank you and happy gaming!</p>
+    </header>
+    
+    </div>
+
+    <p th:text="${message}"></p>
+    
+</body>
+</html>

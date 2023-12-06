@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>My Spring Web App</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
+</head>
+<body>
+    <div id="container">
+          <nav>
+		    <ul>
+		        <li><a th:href="@{/index}" >Home</a></li>
+		        <li><a th:href="@{/Catalog}">Catalog</a></li>
+		        <li><a th:href="@{/Register}" class="active">Register</a></li>
+		        <li><a th:href="@{/Review}">Add Reviews</a></li>
+		        <li><a th:href="@{/Contact}">Contact us</a></li>
+		    </ul>
+		</nav>
+		<header>
+		<h1>New Users Register here!!!</h1>
+		</header>
+	<div class="form">
+                <form action="action_page.php">
+                <section class = "info">
+                	<label for="email"><b>Email</b></label>
+					    <input type="text" placeholder="Enter Email" name="email" id="email" required id = "email">
+					
+					    <label for="psw"><b>Password</b></label>
+					    <input type="password" placeholder="Enter Password" name="psw" id="psw" required>
+					
+					    <label for="psw-repeat"><b>Repeat Password</b></label>
+					    <input type="password" placeholder="Repeat Password" name="psw-repeat" id="psw-repeat" required>
+                  </section>
+                  <input type="submit" value="Submit" class="btn">
+                  <input type="clear" value="clear" class="button">
+              
+                </form>
+              </div>
+              <div class="map">
+
+	  <footer>
+            <p>Java 2</p>
+        </footer>
+    </div>
+
+    <p th:text="${message}"></p>
+</body>
+</html>
